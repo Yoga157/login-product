@@ -95,5 +95,3 @@ The environment used to prepare this solution did not expose a Git executable, s
 3. `feat: add product web interface`.
 4. `test: add unit and functional API coverage`.
 5. `docs: add runbook assumptions and presentation guide`.
-
-Use a neutral public repository name such as `product-management-api`; do not include client or company names in the repository name.
