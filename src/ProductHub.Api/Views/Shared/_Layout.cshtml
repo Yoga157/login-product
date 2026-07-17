@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="view-engine" content="ASP.NET Core Razor">
+    <title>@ViewData["Title"] - ProductHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link asp-append-version="true" href="~/styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">ProductHub</a>
+            <button id="logout" class="btn btn-outline-light btn-sm d-none">Logout</button>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <script asp-append-version="true" src="~/app.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Product Management";
+}
+
+<main class="container py-4">
+    <div id="alert"></div>
+
+    <section id="authView" class="card mx-auto shadow-sm auth-card">
+        <div class="card-body p-4">
+            <h1 class="h4 mb-3">Sign in or create an account</h1>
+            <form id="authForm">
+                <label class="form-label" for="email">Email</label>
+                <input id="email" type="email" class="form-control mb-3" required>
+
+                <label class="form-label" for="password">Password</label>
+                <input id="password" type="password" minlength="8" class="form-control mb-3" required>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary flex-fill" data-action="login">Login</button>
+                    <button class="btn btn-outline-primary flex-fill" data-action="register">Register</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="productsView" class="d-none">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 id="formTitle" class="h5">Add product</h2>
+                        <form id="productForm">
+                            <input id="productId" type="hidden">
+
+                            <label class="form-label" for="name">Name</label>
+                            <input id="name" class="form-control mb-3" minlength="2" maxlength="150" required>
+
+                            <label class="form-label" for="description">Description</label>
+                            <textarea id="description" class="form-control mb-3" maxlength="1000"></textarea>
+
+                            <label class="form-label" for="price">Price</label>
+                            <input id="price" type="number" class="form-control mb-3" min="0.01" step="0.01" required>
+
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary flex-fill">Save</button>
+                                <button id="cancelEdit" type="button" class="btn btn-secondary d-none">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
+                            <h2 class="h5 mb-0">Products</h2>
+                            <form id="searchForm" class="d-flex flex-wrap gap-2">
+                                <input id="searchName" class="form-control form-control-sm search-field" placeholder="Search name">
+                                <input id="minPrice" type="number" min="0" class="form-control form-control-sm price-field" placeholder="Min price">
+                                <input id="maxPrice" type="number" min="0" class="form-control form-control-sm price-field" placeholder="Max price">
+                                <button class="btn btn-sm btn-outline-primary">Search</button>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Created</th>
+                                    <th><span class="visually-hidden">Actions</span></th>
+                                </tr>
+                                </thead>
+                                <tbody id="productRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

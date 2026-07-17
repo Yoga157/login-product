@@ -27,7 +27,7 @@ The SQLite database and log directory are created automatically on first run.
 | Logging | Serilog structured request/application logs to console and daily rolling files |
 | Caching | Unfiltered product list cached in memory for 5 minutes; all mutations invalidate it |
 | Architecture | Controller → service → repository → EF Core database |
-| Frontend | Responsive Bootstrap UI integrated with the secured API |
+| Frontend | ASP.NET Core MVC/Razor View with Bootstrap, integrated with the secured API |
 | Quality | xUnit unit and functional API tests; 99.25% line and 83.87% branch coverage in the verified run |
 | Portability | Runs on Windows/Linux/macOS with .NET 10, or in a Linux Docker container |
 
@@ -53,7 +53,7 @@ dotnet test ProductHub.slnx -c Release \
   --results-directory TestResults
 ```
 
-The test suite covers service rules, cache behavior, password hashing, authentication/authorization, full CRUD, filtering, validation, and error responses. The generated Cobertura report is under `TestResults/<run-id>/coverage.cobertura.xml`.
+The test suite covers Razor view rendering, service rules, cache behavior, password hashing, authentication/authorization, full CRUD, filtering, validation, and error responses. The generated Cobertura report is under `TestResults/<run-id>/coverage.cobertura.xml`.
 
 ## Configuration and production notes
 
@@ -86,12 +86,6 @@ For the shown volume mapping, override the connection string with `-e Connection
 - The frontend stores JWT only in `sessionStorage` to limit persistence. A production browser system should evaluate secure, `HttpOnly`, `SameSite` cookies and CSRF controls.
 - Bootstrap is loaded from a CDN. Bundle it locally if the deployment must work without internet access.
 
-## Suggested commit history
+## Commit strategy
 
-The environment used to prepare this solution did not expose a Git executable, so commits were intentionally not fabricated. To honor the assessment rule, stage and commit in this order before publishing:
-
-1. `chore: initialize .NET 10 solution and dependencies` — solution/project files, `.gitignore`, and package references only.
-2. `feat: add JWT authentication and product API`.
-3. `feat: add product web interface`.
-4. `test: add unit and functional API coverage`.
-5. `docs: add runbook assumptions and presentation guide`.
+The repository history separates framework initialization, backend features, MVC/Razor frontend, automated tests, and documentation into descriptive commits. The first commit contains only the .NET 10 solution structure and dependencies.

@@ -15,6 +15,17 @@ public sealed class ApiIntegrationTests : IClassFixture<ProductHubFactory>
     public ApiIntegrationTests(ProductHubFactory factory) => client = factory.CreateClient();
 
     [Fact]
+    public async Task HomePage_RendersRazorView()
+    {
+        var response = await client.GetAsync("/", TestContext.Current.CancellationToken);
+        var html = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("ASP.NET Core Razor", html);
+        Assert.Contains("Product Management - ProductHub", html);
+    }
+
+    [Fact]
     public async Task ProductEndpoints_RequireAuthentication()
     {
         var response = await client.GetAsync("/api/products", TestContext.Current.CancellationToken);
