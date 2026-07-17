@@ -1,0 +1,18 @@
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal">
+            <div class="modal-icon danger" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>
+            </div>
+            <h2 class="modal-title" id="deleteProductTitle">Delete Product</h2>
+            <p id="deleteProductMessage">Are you sure you want to delete this product? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancel</button>
+                <button id="confirmDeleteButton" class="btn btn-danger" type="button">
+                    <span class="button-label">Delete Product</span>
+                    <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

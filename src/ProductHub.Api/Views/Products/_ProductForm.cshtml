@@ -1,0 +1,42 @@
+<div id="productDrawer" class="product-drawer" role="dialog" aria-modal="true" aria-labelledby="productDrawerTitle" aria-hidden="true">
+    <div class="drawer-header">
+        <div>
+            <p class="eyebrow mb-1">Product details</p>
+            <h2 id="productDrawerTitle">Add Product</h2>
+        </div>
+        <button id="closeProductDrawerButton" class="icon-button neutral" type="button" aria-label="Close product form">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+    </div>
+    <form id="productForm" class="drawer-form" novalidate>
+        <input id="productId" type="hidden">
+        <div class="form-field">
+            <label for="productName" class="form-label">Name <span aria-hidden="true">*</span></label>
+            <input id="productName" class="form-control" minlength="2" maxlength="150" placeholder="e.g. Wireless keyboard" aria-describedby="productNameError">
+            <p id="productNameError" class="field-error" role="alert"></p>
+        </div>
+        <div class="form-field">
+            <label for="productDescription" class="form-label">Description</label>
+            <textarea id="productDescription" class="form-control" rows="5" maxlength="1000" placeholder="Describe this product" aria-describedby="productDescriptionError"></textarea>
+            <div class="field-meta"><p id="productDescriptionError" class="field-error" role="alert"></p><span id="descriptionCount">0 / 1000</span></div>
+        </div>
+        <div class="form-field">
+            <label for="productPrice" class="form-label">Price <span aria-hidden="true">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">Rp</span>
+                <input id="productPrice" type="number" class="form-control" min="0.01" step="0.01" placeholder="0" aria-describedby="productPriceError">
+            </div>
+            <p id="productPriceError" class="field-error" role="alert"></p>
+            <p id="pricePreview" class="price-preview">Rp0</p>
+        </div>
+        <p id="productFormError" class="form-alert" role="alert"></p>
+        <div class="drawer-actions">
+            <button id="cancelProductButton" class="btn btn-light" type="button">Cancel</button>
+            <button id="saveProductButton" class="btn btn-primary" type="submit">
+                <span class="button-label">Save Product</span>
+                <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+            </button>
+        </div>
+    </form>
+</div>
+<div id="drawerOverlay" class="drawer-overlay" aria-hidden="true"></div>

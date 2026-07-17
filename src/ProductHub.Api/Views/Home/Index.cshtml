@@ -2,84 +2,81 @@
     ViewData["Title"] = "Product Management";
 }
 
-<main class="container py-4">
-    <div id="alert"></div>
+<div id="authShell" class="auth-shell">
+    <partial name="~/Views/Account/_AuthBrand.cshtml" />
+    <main class="auth-panel">
+        <partial name="~/Views/Account/_LoginForm.cshtml" />
+        <partial name="~/Views/Account/_RegisterForm.cshtml" />
+    </main>
+</div>
 
-    <section id="authView" class="card mx-auto shadow-sm auth-card">
-        <div class="card-body p-4">
-            <h1 class="h4 mb-3">Sign in or create an account</h1>
-            <form id="authForm">
-                <label class="form-label" for="email">Email</label>
-                <input id="email" type="email" class="form-control mb-3" required>
-
-                <label class="form-label" for="password">Password</label>
-                <input id="password" type="password" minlength="8" class="form-control mb-3" required>
-
-                <div class="d-flex gap-2">
-                    <button class="btn btn-primary flex-fill" data-action="login">Login</button>
-                    <button class="btn btn-outline-primary flex-fill" data-action="register">Register</button>
+<div id="appShell" class="app-shell d-none">
+    <partial name="~/Views/Shared/_Sidebar.cshtml" />
+    <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+    <div class="app-workspace">
+        <partial name="~/Views/Shared/_Topbar.cshtml" />
+        <main class="main-content" id="mainContent">
+            <section class="page-heading">
+                <div>
+                    <p class="eyebrow mb-2">Catalog</p>
+                    <h1>Products</h1>
+                    <p class="page-subtitle">Manage your product catalog</p>
                 </div>
-            </form>
-        </div>
-    </section>
+                <button id="addProductButton" class="btn btn-primary btn-add-product" type="button">
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                    Add Product
+                </button>
+            </section>
 
-    <section id="productsView" class="d-none">
-        <div class="row g-4">
-            <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h2 id="formTitle" class="h5">Add product</h2>
-                        <form id="productForm">
-                            <input id="productId" type="hidden">
-
-                            <label class="form-label" for="name">Name</label>
-                            <input id="name" class="form-control mb-3" minlength="2" maxlength="150" required>
-
-                            <label class="form-label" for="description">Description</label>
-                            <textarea id="description" class="form-control mb-3" maxlength="1000"></textarea>
-
-                            <label class="form-label" for="price">Price</label>
-                            <input id="price" type="number" class="form-control mb-3" min="0.01" step="0.01" required>
-
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-primary flex-fill">Save</button>
-                                <button id="cancelEdit" type="button" class="btn btn-secondary d-none">Cancel</button>
-                            </div>
-                        </form>
+            <section class="filter-card" aria-labelledby="filterHeading">
+                <div class="filter-title-row">
+                    <div>
+                        <h2 id="filterHeading">Search &amp; filters</h2>
+                        <p>Find products by name or price range.</p>
                     </div>
+                    <button id="clearFiltersButton" class="btn btn-link btn-clear" type="button">Clear filters</button>
                 </div>
-            </div>
-
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
-                            <h2 class="h5 mb-0">Products</h2>
-                            <form id="searchForm" class="d-flex flex-wrap gap-2">
-                                <input id="searchName" class="form-control form-control-sm search-field" placeholder="Search name">
-                                <input id="minPrice" type="number" min="0" class="form-control form-control-sm price-field" placeholder="Min price">
-                                <input id="maxPrice" type="number" min="0" class="form-control form-control-sm price-field" placeholder="Max price">
-                                <button class="btn btn-sm btn-outline-primary">Search</button>
-                            </form>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table align-middle">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
-                                    <th>Created</th>
-                                    <th><span class="visually-hidden">Actions</span></th>
-                                </tr>
-                                </thead>
-                                <tbody id="productRows"></tbody>
-                            </table>
+                <form id="filterForm" class="filter-grid" novalidate>
+                    <div class="search-control">
+                        <label for="searchName" class="form-label">Product name</label>
+                        <div class="input-icon-wrap">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                            <input id="searchName" class="form-control" placeholder="Search by product name" maxlength="150" autocomplete="off">
                         </div>
                     </div>
+                    <div>
+                        <label for="minPrice" class="form-label">Minimum price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input id="minPrice" type="number" class="form-control" min="0" step="1" placeholder="0">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="maxPrice" class="form-label">Maximum price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input id="maxPrice" type="number" class="form-control" min="0" step="1" placeholder="No limit">
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-apply" type="submit">Apply filter</button>
+                    <p id="filterError" class="field-error filter-error" role="alert"></p>
+                </form>
+            </section>
+
+            <section class="product-card" aria-labelledby="productTableHeading">
+                <div class="product-card-header">
+                    <div>
+                        <h2 id="productTableHeading">Product catalog</h2>
+                        <p id="productCount">Loading products...</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-</main>
+                <div id="productContent" class="product-content" aria-live="polite"></div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<partial name="~/Views/Products/_ProductForm.cshtml" />
+<partial name="~/Views/Products/_DeleteProductModal.cshtml" />
+<partial name="~/Views/Products/_DiscardChangesModal.cshtml" />
+<partial name="~/Views/Shared/_Toast.cshtml" />
