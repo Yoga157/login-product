@@ -9,5 +9,3 @@ logs/
 TestResults*/
 coverage/
 .env
-.agents/
-.codex/
